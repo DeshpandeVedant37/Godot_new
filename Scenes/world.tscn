@@ -1,3 +1,13 @@
-[gd_scene format=3 uid="uid://c3p58mrvxcdo6"]
+[gd_scene load_steps=3 format=3 uid="uid://c3p58mrvxcdo6"]
+
+[ext_resource type="Texture2D" uid="uid://dfdtkaxitjg4g" path="res://Scenes/0d93dbfb2be20dabfba61ad3cd342fa1.png" id="1_rmd7b"]
+[ext_resource type="PackedScene" uid="uid://cofbdeaxnh0jv" path="res://Scenes/Player.tscn" id="2_htu32"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Test-Background" type="Sprite2D" parent="."]
+position = Vector2(960, 544)
+texture = ExtResource("1_rmd7b")
+
+[node name="Player" parent="." instance=ExtResource("2_htu32")]
+position = Vector2(328, 256)
