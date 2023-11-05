@@ -4,7 +4,8 @@ extends CharacterBody2D
 var SPEED = 300.0
 var current_dir = "none"
 
-
+func _ready():
+	$AnimatedSprite2D.play("Idle-B")
 func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -37,7 +38,6 @@ func _physics_process(delta):
 	else:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 	move_and_slide()
-	
 func play_animation(movement):
 	var dir = current_dir
 	var ainm = $AnimatedSprite2D
@@ -65,4 +65,3 @@ func play_animation(movement):
 			ainm.play("Run-B")
 		elif movement == 0:
 			ainm.play("Idle-B")
-
