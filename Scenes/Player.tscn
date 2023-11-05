@@ -294,7 +294,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_50e1j")
 }],
 "loop": true,
-"name": &"Idel-B",
+"name": &"Idle-B",
 "speed": 5.0
 }, {
 "frames": [{
@@ -317,7 +317,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_1dvnu")
 }],
 "loop": true,
-"name": &"Idel-F",
+"name": &"Idle-F",
 "speed": 5.0
 }, {
 "frames": [{
@@ -340,7 +340,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_hoapv")
 }],
 "loop": true,
-"name": &"Idel-S",
+"name": &"Idle-S",
 "speed": 5.0
 }, {
 "frames": [{
@@ -423,7 +423,7 @@ script = ExtResource("1_c0q2d")
 position = Vector2(512, 257.5)
 scale = Vector2(1, 0.9375)
 sprite_frames = SubResource("SpriteFrames_mfe2e")
-animation = &"Attack-B"
+animation = &"Idle-F"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(513, 265)
