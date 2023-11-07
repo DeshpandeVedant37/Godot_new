@@ -1,9 +1,6 @@
 extends CharacterBody2D
-
-
 var SPEED = 150.0
 var current_dir = "none"
-
 func _ready():
 	$AnimatedSprite2D.play("Idle-B")
 func _physics_process(delta):
@@ -11,7 +8,7 @@ func _physics_process(delta):
 	var dir = Input.get_vector("ui_left" , "ui_right" , "ui_up" , "ui_down")
 	velocity = dir.normalized() * SPEED
 	move_and_slide()
-	#print (dir)
+	
 	if dir.y == -1:
 		current_dir = "up"
 		play_animation(1)
@@ -24,14 +21,8 @@ func _physics_process(delta):
 	elif dir.x == 1:
 		current_dir = "right"
 		play_animation(1)
-	elif dir.x == 0.707107 and dir.y == -0.707107:
-		current_dir = "diagonal-R"
-		play_animation(1)
-		
 	if dir.x == 0 and dir.y == 0:
 		play_animation(0)
-	print (dir)
-	
 #animation controller function
 func play_animation(movement):
 	var dir = current_dir
@@ -60,9 +51,4 @@ func play_animation(movement):
 			ainm.play("Run-B")
 		elif movement == 0:
 			ainm.play("Idle-B")
-	if dir == "diagonal-R":
-		ainm.flip_h = false
-		if movement  == 1:
-			ainm.play("Run-S")
-		elif movement == 0:
-			ainm.play("Idle-S")
+
