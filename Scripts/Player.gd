@@ -7,38 +7,31 @@ var current_dir = "none"
 func _ready():
 	$AnimatedSprite2D.play("Idle-B")
 func _physics_process(delta):
-	
-	
-	#gets directional input in terms of 1 and -1
-	var direction_x = Input.get_axis("ui_left", "ui_right")
-	var direction_y = Input.get_axis("ui_up" , "ui_down")
-	#Communication of direction with animation controller
-	if direction_x ==1:
-		current_dir = "right"
-		play_animation(1)
-	elif direction_x == -1:
-		current_dir = "left"
-		play_animation(1)
-	if direction_y == -1:
+	#gets a vector quantity with respect to keys pressed
+	var dir = Input.get_vector("ui_left" , "ui_right" , "ui_up" , "ui_down")
+	velocity = dir.normalized() * SPEED
+	move_and_slide()
+	#print (dir)
+	if dir.y == -1:
 		current_dir = "up"
 		play_animation(1)
-	elif direction_y == 1:
+	elif dir.y == 1:
 		current_dir = "down"
 		play_animation(1)
-	if direction_x == 0 and direction_y ==0:
-	
-		play_animation(0)
-	#Main movement controller
-	if direction_x:
-		velocity.x = direction_x * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-	if direction_y:
-		velocity.y = direction_y *SPEED
+	elif dir.x == -1:
+		current_dir = "left"
+		play_animation(1)
+	elif dir.x == 1:
+		current_dir = "right"
+		play_animation(1)
+	elif dir.x == 0.707107 and dir.y == -0.707107:
+		current_dir = "diagonal-R"
+		play_animation(1)
 		
-	else:
-		velocity.y = move_toward(velocity.y, 0, SPEED)
-	move_and_slide()
+	if dir.x == 0 and dir.y == 0:
+		play_animation(0)
+	print (dir)
+	
 #animation controller function
 func play_animation(movement):
 	var dir = current_dir
@@ -67,3 +60,9 @@ func play_animation(movement):
 			ainm.play("Run-B")
 		elif movement == 0:
 			ainm.play("Idle-B")
+	if dir == "diagonal-R":
+		ainm.flip_h = false
+		if movement  == 1:
+			ainm.play("Run-S")
+		elif movement == 0:
+			ainm.play("Idle-S")
