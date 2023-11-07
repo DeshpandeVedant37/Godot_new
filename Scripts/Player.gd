@@ -1,17 +1,18 @@
 extends CharacterBody2D
 
 
-var SPEED = 300.0
+var SPEED = 150.0
 var current_dir = "none"
 
 func _ready():
 	$AnimatedSprite2D.play("Idle-B")
 func _physics_process(delta):
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+	
+	
+	#gets directional input in terms of 1 and -1
 	var direction_x = Input.get_axis("ui_left", "ui_right")
 	var direction_y = Input.get_axis("ui_up" , "ui_down")
-	
+	#Communication of direction with animation controller
 	if direction_x ==1:
 		current_dir = "right"
 		play_animation(1)
@@ -24,10 +25,10 @@ func _physics_process(delta):
 	elif direction_y == 1:
 		current_dir = "down"
 		play_animation(1)
-	
 	if direction_x == 0 and direction_y ==0:
+	
 		play_animation(0)
-		
+	#Main movement controller
 	if direction_x:
 		velocity.x = direction_x * SPEED
 	else:
@@ -38,6 +39,7 @@ func _physics_process(delta):
 	else:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 	move_and_slide()
+#animation controller function
 func play_animation(movement):
 	var dir = current_dir
 	var ainm = $AnimatedSprite2D
