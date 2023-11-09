@@ -1,12 +1,20 @@
 extends CharacterBody2D
 
-var entered = false
-var target = position 
 
-func _on_area_2d_body_entered(body: CharacterBody2D ):
-	entered = true
-func _on_area_2d_body_exited(body: CharacterBody2D):
-	entered = false
+
+var speed = 125
+var player_chase = false
+var player= null
+
 func _physics_process(delta):
-	target = get_position_delta()
-	print (target)
+	if player_chase:
+		position += (player.position - position) / speed
+	move_and_slide()
+
+func _on_detection_area_body_entered(body):
+	player = body
+	player_chase = true
+
+func _on_detection_area_body_exited(body):
+	player = null
+	player_chase = false

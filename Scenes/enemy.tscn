@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://60fn32ofhxxp"]
+[gd_scene load_steps=10 format=3 uid="uid://btdir1cvn3myr"]
 
 [ext_resource type="Texture2D" uid="uid://cdjovlovfaba7" path="res://art/characters/slime.png" id="1_sxwde"]
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_x343e"]
@@ -53,17 +53,20 @@ sprite_frames = SubResource("SpriteFrames_ppwl2")
 animation = &"Idle"
 offset = Vector2(0, -3)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Detection_area" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2
 
-[node name="Detection" type="CollisionShape2D" parent="Area2D"]
+[node name="Detection" type="CollisionShape2D" parent="Detection_area"]
 shape = SubResource("CircleShape2D_wkyaw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_brml1")
 
-[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="area_shape_entered" from="Detection_area" to="." method="_on_area_2d_area_shape_entered"]
+[connection signal="area_shape_entered" from="Detection_area" to="." method="_on_detection_area_area_shape_entered"]
+[connection signal="body_entered" from="Detection_area" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="Detection_area" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_exited" from="Detection_area" to="." method="_on_detection_area_body_exited"]
