@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c3p58mrvxcdo6"]
+[gd_scene load_steps=14 format=3 uid="uid://c3p58mrvxcdo6"]
 
 [ext_resource type="Texture2D" uid="uid://c82sl6de8pt3d" path="res://art/tilesets/grass_tileset_16x16.png" id="1_bxioj"]
 [ext_resource type="PackedScene" uid="uid://cofbdeaxnh0jv" path="res://Scenes/Player.tscn" id="2_htu32"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cfxobcq08fqye" path="res://art/tilesets/decor_16x16.png" id="3_obt2i"]
 [ext_resource type="Texture2D" uid="uid://cbj5p8ssxct6r" path="res://art/tilesets/fences.png" id="4_yfocq"]
 [ext_resource type="Texture2D" uid="uid://bivwod2q8v8e1" path="res://art/objects/objects.png" id="5_6pvph"]
+[ext_resource type="PackedScene" uid="uid://60fn32ofhxxp" path="res://Scenes/enemy.tscn" id="7_4dd6b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kgdgv"]
 texture = ExtResource("1_bxioj")
@@ -1115,3 +1116,6 @@ z_index = 1
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(328, 256)
+
+[node name="Enemy" parent="." instance=ExtResource("7_4dd6b")]
+position = Vector2(976, 528)

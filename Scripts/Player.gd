@@ -1,4 +1,5 @@
 extends CharacterBody2D
+#note to self : increase animation speed
 var SPEED = 150.0
 var current_dir = "none"
 func _ready():
