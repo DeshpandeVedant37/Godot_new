@@ -1,15 +1,12 @@
 extends CharacterBody2D
-
-
-
 var speed = 125
 var player_chase = false
 var player= null
 
 func _physics_process(delta):
-	if player_chase:
+	if player_chase == true:
 		position += (player.position - position) / speed
-	move_and_slide()
+	print (player)
 
 func _on_detection_area_body_entered(body):
 	player = body
