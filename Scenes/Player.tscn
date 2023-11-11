@@ -417,10 +417,13 @@ animations = [{
 radius = 3.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+y_sort_enabled = true
 collision_layer = 3
 script = ExtResource("1_c0q2d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 position = Vector2(0, 8)
 scale = Vector2(1, 0.9375)
 sprite_frames = SubResource("SpriteFrames_mfe2e")
@@ -428,6 +431,7 @@ animation = &"Idle-F"
 offset = Vector2(0, -15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_as_relative = false
 y_sort_enabled = true
 position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_orpjy")
