@@ -2,27 +2,35 @@ extends CharacterBody2D
 #note to self : increase animation speed
 var SPEED = 150.0
 var current_dir = "none"
+var Health = 100
+var overlap = false
+var dead = false
+var cooldown = true
 func _ready():
 	$AnimatedSprite2D.play("Idle-B")
 func _physics_process(delta):
+	
+	if Input.is_action_pressed("Shift"):
+		SPEED = 250
+	else:
+		SPEED = 150
 	#gets a vector quantity with respect to keys pressed
 	var dir = Input.get_vector("ui_left" , "ui_right" , "ui_up" , "ui_down")
 	velocity = dir.normalized() * SPEED
 	move_and_slide()
-	
-	if dir.y == -1:
+	if dir.y == -1:#Plays Run-B
 		current_dir = "up"
 		play_animation(1)
-	elif dir.y == 1:
+	elif dir.y == 1:#plays Run-F
 		current_dir = "down"
 		play_animation(1)
-	elif dir.x == -1:
+	elif dir.x == -1:#plays Run -S with flip_h true
 		current_dir = "left"
 		play_animation(1)
-	elif dir.x == 1:
+	elif dir.x == 1:# plays Run-S without flip_h
 		current_dir = "right"
 		play_animation(1)
-	if dir.x == 0 and dir.y == 0:
+	if dir.x == 0 and dir.y == 0:#stops animation when player is not in motion
 		play_animation(0)
 #animation controller function
 func play_animation(movement):
@@ -53,3 +61,22 @@ func play_animation(movement):
 		elif movement == 0:
 			ainm.play("Idle-B")
 
+
+
+func player():
+	pass
+func _on_hitbox_p_body_entered(body):
+	if body.has_method("enemy"):
+		overlap = true
+
+func _on_hitbox_p_body_exited(body):
+	if body.has_method("enemy"):
+		overlap= false
+func damage():
+	if overlap:
+		Health -= 1
+		#print (Health)
+
+func _on_timer_timeout():
+	damage()
+	

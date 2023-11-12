@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cofbdeaxnh0jv"]
+[gd_scene load_steps=57 format=3 uid="uid://cofbdeaxnh0jv"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_c0q2d"]
 [ext_resource type="Texture2D" uid="uid://5df7nnfc54v2" path="res://art/characters/player.png" id="2_yot2y"]
@@ -416,6 +416,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_orpjy"]
 radius = 3.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_luh5t"]
+radius = 10.0499
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
 z_as_relative = false
@@ -442,3 +445,16 @@ shape = SubResource("CircleShape2D_orpjy")
 
 [node name="Camera2D" type="Camera2D" parent="CollisionShape2D"]
 zoom = Vector2(4, 4)
+
+[node name="Hitbox-P" type="Area2D" parent="."]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Hitbox-P"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_luh5t")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="Hitbox-P" to="." method="_on_hitbox_p_body_entered"]
+[connection signal="body_exited" from="Hitbox-P" to="." method="_on_hitbox_p_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
