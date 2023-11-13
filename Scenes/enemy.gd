@@ -12,10 +12,6 @@ func _ready():
 	get_node("AnimatedSprite2D").play("Idle")
 
 func _physics_process(delta):
-	#damage()
-	
-
-		
 	if entered == true:
 		anim.flip_h = false
 		
