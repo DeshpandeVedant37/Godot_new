@@ -61,8 +61,6 @@ func play_animation(movement):
 		elif movement == 0:
 			ainm.play("Idle-B")
 
-
-
 func player():
 	pass
 func _on_hitbox_p_body_entered(body):

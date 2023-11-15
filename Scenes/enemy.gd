@@ -47,6 +47,8 @@ func damage():
 		Health -= 2
 		if Health <=0:
 			anim.play("Death")
+			get_parent().remove_child($".")
+			
 		#print (Health)
 #fires every 0.2 seconds
 func _on_timer_timeout():
