@@ -2,7 +2,7 @@ extends CharacterBody2D
 #note to self : increase animation speed
 var SPEED = 150.0
 var current_dir = "none"
-var Health = 100
+var Health = 2
 var overlap = false
 var dead = false
 var cooldown = true
@@ -75,8 +75,12 @@ func _on_hitbox_p_body_exited(body):
 func damage():
 	if overlap:
 		Health -= 1
+		if Health <= 0:
+			print("death")
+			get_parent().queue_free()
+			get_tree().change_scene_to_file("res://Scenes/Death.tscn")
 		#print (Health)
-
+		print(Health)
 func _on_timer_timeout():
 	damage()
 	
