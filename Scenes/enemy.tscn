@@ -1,6 +1,6 @@
 [gd_scene load_steps=39 format=3 uid="uid://d4kh84825u01k"]
 
-[ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_n6uvo"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_mcj1v"]
 [ext_resource type="Texture2D" uid="uid://cdjovlovfaba7" path="res://art/characters/slime.png" id="1_r1reh"]
 [ext_resource type="Texture2D" uid="uid://cig52p1vv7123" path="res://art/characters/Mutated_Bat/Idle_Fly.png" id="2_83a8k"]
 [ext_resource type="Texture2D" uid="uid://crwppbe4ga3cu" path="res://art/characters/Mutated_Bat/Attack_Death.png" id="2_lxesh"]
@@ -274,7 +274,7 @@ z_as_relative = false
 y_sort_enabled = true
 collision_layer = 3
 collision_mask = 3
-script = ExtResource("1_n6uvo")
+script = ExtResource("1_mcj1v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1

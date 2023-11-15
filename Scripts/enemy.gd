@@ -43,7 +43,7 @@ func _on_hitbox_e_body_exited(body):
 		overlap = false
 #whenever called, decreases health
 func damage():
-	if overlap: 
+	if overlap and Input.is_action_pressed("click"): 
 		Health -= 2
 		if Health <=0:
 			anim.play("Death")
