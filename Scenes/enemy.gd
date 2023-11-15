@@ -3,7 +3,7 @@ extends CharacterBody2D
 var speed = 40
 var entered = false
 var player = null
-var Health = 2
+var Health = 20
 var dead = false
 var overlap = false
 @onready var anim = $AnimatedSprite2D

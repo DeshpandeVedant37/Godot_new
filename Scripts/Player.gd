@@ -2,10 +2,11 @@ extends CharacterBody2D
 #note to self : increase animation speed
 var SPEED = 150.0
 var current_dir = "none"
-var Health = 2
+var Health = 100
 var overlap = false
 var dead = false
 var cooldown = true
+
 func _ready():
 	$AnimatedSprite2D.play("Idle-B")
 func _physics_process(delta):
@@ -18,6 +19,9 @@ func _physics_process(delta):
 	var dir = Input.get_vector("ui_left" , "ui_right" , "ui_up" , "ui_down")
 	velocity = dir.normalized() * SPEED
 	move_and_slide()
+	
+
+	
 	if dir.y == -1:#Plays Run-B
 		current_dir = "up"
 		play_animation(1)
@@ -49,6 +53,10 @@ func play_animation(movement):
 		elif movement == 0:
 			ainm.play("Idle-S")
 	if dir == "down":
+		if Input.is_action_pressed("click"):
+			ainm.play("Attack-F")
+			print("attacked")
+			
 		ainm.flip_h = true
 		if movement  == 1:
 			ainm.play("Run-F")
