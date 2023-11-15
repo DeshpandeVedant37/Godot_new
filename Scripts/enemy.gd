@@ -1,11 +1,12 @@
 extends CharacterBody2D
 #variables, of course
-var speed = 40
+var speed = 35
 var entered = false
 var player = null
-var Health = 20
+var Health = 2
 var dead = false
 var overlap = false
+var ended = false
 @onready var anim = $AnimatedSprite2D
 #Decides what animation should be playing at load
 func _ready():
@@ -16,7 +17,8 @@ func _physics_process(delta):
 		anim.flip_h = false
 		#Main enemy movement script
 		position = position.move_toward(player.position , speed*delta)
-		anim.play("Walk")
+		
+		#anim.play("Walk")
 		#Decides which side the player is on and flips the sprite accordingly
 		move_and_collide(Vector2(0,0))
 		if player.position.x - position.x > 0 :
@@ -48,6 +50,7 @@ func damage():
 		if Health <=0:
 			anim.play("Death")
 			get_parent().remove_child($".")
+			#get_parent().remove_child($".")
 			
 		#print (Health)
 #fires every 0.2 seconds
@@ -55,3 +58,6 @@ func _on_timer_timeout():
 	damage()
 	
 
+
+func _on_animated_sprite_2d_animation_finished():
+	ended = true

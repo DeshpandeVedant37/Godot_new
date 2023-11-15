@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://d4kh84825u01k"]
+[gd_scene load_steps=40 format=3 uid="uid://d4kh84825u01k"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_mcj1v"]
 [ext_resource type="Texture2D" uid="uid://cdjovlovfaba7" path="res://art/characters/slime.png" id="1_r1reh"]
@@ -37,6 +37,10 @@ region = Rect2(576, 0, 96, 80)
 [sub_resource type="AtlasTexture" id="AtlasTexture_wlncy"]
 atlas = ExtResource("2_lxesh")
 region = Rect2(672, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0cua"]
+atlas = ExtResource("1_r1reh")
+region = Rect2(140, 0, 28, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wsbvb"]
 atlas = ExtResource("2_83a8k")
@@ -136,8 +140,11 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wlncy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0cua")
 }],
-"loop": true,
+"loop": false,
 "name": &"Death",
 "speed": 5.0
 }, {
@@ -215,7 +222,7 @@ animations = [{
 radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0lf3n"]
-radius = 96.0
+radius = 108.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7mc0d"]
 radius = 10.0499
