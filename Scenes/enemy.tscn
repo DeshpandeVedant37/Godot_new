@@ -227,9 +227,9 @@ radius = 108.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7mc0d"]
 radius = 10.0499
 
-[sub_resource type="Animation" id="Animation_e3g80"]
+[sub_resource type="Animation" id="Animation_vown4"]
 resource_name = "Death"
-length = 7.0
+length = 0.80001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -237,7 +237,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"Death"]
@@ -249,13 +249,13 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1, 2, 3, 4, 5, 6, 7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
 }
 
-[sub_resource type="Animation" id="Animation_7v6ns"]
+[sub_resource type="Animation" id="Animation_dgq4b"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -270,10 +270,10 @@ tracks/0/keys = {
 "values": [1]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xt2d4"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uprnx"]
 _data = {
-"Death": SubResource("Animation_e3g80"),
-"RESET": SubResource("Animation_7v6ns")
+"Death": SubResource("Animation_vown4"),
+"RESET": SubResource("Animation_dgq4b")
 }
 
 [node name="enemy" type="CharacterBody2D"]
@@ -312,12 +312,9 @@ shape = SubResource("CircleShape2D_7mc0d")
 wait_time = 0.2
 autostart = true
 
-[node name="Timer2" type="Timer" parent="."]
-wait_time = 5.0
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_xt2d4")
+"": SubResource("AnimationLibrary_uprnx")
 }
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
@@ -326,4 +323,4 @@ libraries = {
 [connection signal="body_entered" from="Hitbox-E" to="." method="_on_hitbox_e_body_entered"]
 [connection signal="body_exited" from="Hitbox-E" to="." method="_on_hitbox_e_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

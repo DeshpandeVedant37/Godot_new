@@ -8,6 +8,8 @@ var dead = false
 var overlap = false
 var ended = false
 @onready var anim = $AnimatedSprite2D
+
+
 #Decides what animation should be playing at load
 func _ready():
 	get_node("AnimatedSprite2D").play("Idle")
@@ -49,15 +51,11 @@ func damage():
 		Health -= 2
 		if Health <=0:
 			anim.play("Death")
-			get_parent().remove_child($".")
-			#get_parent().remove_child($".")
-			
-		#print (Health)
+			if ended == true:
+				get_parent().remove_child($".")
 #fires every 0.2 seconds
 func _on_timer_timeout():
 	damage()
 	
 
 
-func _on_animated_sprite_2d_animation_finished():
-	ended = true
