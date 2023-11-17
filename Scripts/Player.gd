@@ -6,6 +6,7 @@ var Health = 100
 var overlap = false
 var dead = false
 var cooldown = true
+var finished = false
 
 func _ready():
 	$AnimatedSprite2D.play("Idle-B")
@@ -87,3 +88,7 @@ func damage():#basic code for handeling damage
 		print(Health)
 func _on_timer_timeout():#gets called every 0.2 seconds
 	damage()
+
+
+func _on_animated_sprite_2d_animation_finished():
+	finished = true
