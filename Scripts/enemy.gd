@@ -34,6 +34,7 @@ func _on_detection_area_body_entered(body):
 #Detects when the body (player) exits
 func _on_detection_area_body_exited(body):
 	entered = false
+	Health = 20
 #States that this scene is a type of enemy
 func enemy():
 	pass

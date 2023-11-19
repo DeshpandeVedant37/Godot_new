@@ -2,16 +2,16 @@ extends CharacterBody2D
 #note to self : increase animation speed
 var SPEED = 150.0
 var current_dir = "none"
-var Health = 100
+var Health =500
 var overlap = false
 var dead = false
-var cooldown = true
-var finished = false
+var cooldown = false
+
 
 func _ready():
 	$AnimatedSprite2D.play("Idle-B")
 func _physics_process(delta):
-	
+	damage()
 	if Input.is_action_pressed("Shift"):
 		SPEED = 250
 	else:
@@ -78,17 +78,17 @@ func _on_hitbox_p_body_exited(body):#if a node exits and its an enemy, overlap i
 	if body.has_method("enemy"):
 		overlap= false
 func damage():#basic code for handeling damage
-	if overlap:
+	if overlap and cooldown == true:
 		Health -= 1
+		cooldown = false
+		$Timer.start()
 		if Health <= 0:
 			print("death")
-			get_parent().queue_free()
 			get_tree().change_scene_to_file("res://Scenes/Death.tscn")
-		#print (Health)
+
 		print(Health)
 func _on_timer_timeout():#gets called every 0.2 seconds
-	damage()
+	cooldown = true
+	print("1")
 
 
-func _on_animated_sprite_2d_animation_finished():
-	finished = true
