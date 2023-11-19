@@ -2,16 +2,18 @@ extends CharacterBody2D
 #note to self : increase animation speed
 var SPEED = 150.0
 var current_dir = "none"
-var Health =500
+var Health = 100
 var overlap = false
 var dead = false
-var cooldown = false
+var cooldown = true
+
 
 
 func _ready():
 	$AnimatedSprite2D.play("Idle-B")
 func _physics_process(delta):
 	damage()
+	
 	if Input.is_action_pressed("Shift"):
 		SPEED = 250
 	else:
@@ -85,10 +87,12 @@ func damage():#basic code for handeling damage
 		if Health <= 0:
 			print("death")
 			get_tree().change_scene_to_file("res://Scenes/Death.tscn")
-
-		print(Health)
+		#print(Health)
 func _on_timer_timeout():#gets called every 0.2 seconds
 	cooldown = true
-	print("1")
+	attack()
 
-
+func attack():
+	if Input.is_action_pressed("click"):
+		global.player_current_attack = true
+	

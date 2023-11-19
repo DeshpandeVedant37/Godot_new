@@ -4,9 +4,8 @@ var speed = 35
 var entered = false
 var player = null
 var Health = 2
-var dead = false
 var overlap = false
-var ended = false
+
 @onready var anim = $AnimatedSprite2D
 
 
@@ -15,6 +14,7 @@ func _ready():
 	get_node("AnimatedSprite2D").play("Idle")
 
 func _physics_process(delta):
+	
 	if entered == true:#movement with animation controller
 		anim.flip_h = false
 		#Main enemy movement script
@@ -50,13 +50,11 @@ func _on_hitbox_e_body_exited(body):
 func damage():
 	if overlap and Input.is_action_pressed("click"): 
 		Health -= 2
+		print(Health)
 		if Health <=0:
 			anim.play("Death")
-			if ended == true:
-				get_parent().remove_child($".")
+			Health = 0
+				
 #fires every 0.2 seconds
 func _on_timer_timeout():
 	damage()
-	
-
-

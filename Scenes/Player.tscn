@@ -453,7 +453,7 @@ position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_luh5t")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.5
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Hitbox-P" to="." method="_on_hitbox_p_body_entered"]
