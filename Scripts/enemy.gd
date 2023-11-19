@@ -3,7 +3,7 @@ extends CharacterBody2D
 var speed = 35
 var entered = false
 var player = null
-var Health = 20
+var Health = 2
 var overlap = false
 var dead = false
 
@@ -21,7 +21,7 @@ func _physics_process(delta):
 		#Main enemy movement script
 		position = position.move_toward(player.position , speed*delta)
 		
-		#anim.play("Walk")
+		anim.play("Walk")
 		#Decides which side the player is on and flips the sprite accordingly
 		move_and_collide(Vector2(0,0))
 		if player.position.x - position.x > 0 :
@@ -53,7 +53,7 @@ func _on_hitbox_e_body_exited(body):
 func damage():
 	if overlap and global.player_current_attack == true: 
 		Health -= 2
-		print(Health)
+		#print(Health)
 		if Health <=0:
 			dead = true
 			$Death.start()
