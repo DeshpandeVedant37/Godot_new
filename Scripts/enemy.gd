@@ -48,7 +48,7 @@ func _on_hitbox_e_body_exited(body):
 		overlap = false
 #whenever called, decreases health
 func damage():
-	if overlap and Input.is_action_pressed("click"): 
+	if overlap and global.player_current_attack == true: 
 		Health -= 2
 		print(Health)
 		if Health <=0:

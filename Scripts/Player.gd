@@ -6,13 +6,14 @@ var Health = 100
 var overlap = false
 var dead = false
 var cooldown = true
-
+var attack_ip = false
 
 
 func _ready():
 	$AnimatedSprite2D.play("Idle-B")
 func _physics_process(delta):
 	damage()
+	attack()
 	
 	if Input.is_action_pressed("Shift"):
 		SPEED = 250
@@ -35,7 +36,7 @@ func _physics_process(delta):
 	elif dir.x == 1:# plays Run-S without flip_h
 		current_dir = "right"
 		play_animation(1)
-	if dir.x == 0 and dir.y == 0:#stops animation when player is not in motion
+	if velocity.x == 0 and velocity.y == 0:#stops animation when player is not in motion
 		play_animation(0)
 #animation controller function
 func play_animation(movement):#controlls animation on the basis of 1s and 0s
@@ -45,30 +46,30 @@ func play_animation(movement):#controlls animation on the basis of 1s and 0s
 		ainm.flip_h = false
 		if movement == 1:
 			ainm.play("Run-S")
-		elif movement == 0:
-			ainm.play("Idle-S")
+		elif movement == 0 :
+			if attack_ip == false:
+				ainm.play("Idle-S")
 	if dir == "left":
 		ainm.flip_h = true
 		if movement  == 1:
 			ainm.play("Run-S")
-		elif movement == 0:
-			ainm.play("Idle-S")
+		elif movement == 0 :
+			if attack_ip == false:
+				ainm.play("Idle-S")
 	if dir == "down":
-		if Input.is_action_pressed("click"):
-			ainm.play("Attack-F")
-			print("attacked")
-			
 		ainm.flip_h = true
 		if movement  == 1:
 			ainm.play("Run-F")
-		elif movement == 0:
-			ainm.play("Idle-F")
+		elif movement == 0 :
+			if attack_ip == false:
+				ainm.play("Idle-F")
 	if dir == "up":
 		ainm.flip_h = true
 		if movement  == 1:
 			ainm.play("Run-B")
 		elif movement == 0:
-			ainm.play("Idle-B")
+			if attack_ip == false:
+				ainm.play("Idle-B")
 
 func player():#statse that this node is a player
 	pass
@@ -90,9 +91,34 @@ func damage():#basic code for handeling damage
 		#print(Health)
 func _on_timer_timeout():#gets called every 0.2 seconds
 	cooldown = true
-	attack()
+	
 
 func attack():
+	var dir = current_dir
+	var anim = $AnimatedSprite2D
 	if Input.is_action_pressed("click"):
+		attack_ip = true
 		global.player_current_attack = true
+		if dir == "right":
+			anim.flip_h = false
+			anim.play("Attack-S")
+			$Attack_timer.start()
+		if dir == "left":
+			anim.flip_h = true
+			anim.play("Attack-S")
+			$Attack_timer.start()
+		if dir == "down":
+			anim.play("Attack-F")
+			$Attack_timer.start()
+		if dir == "up":
+			anim.play("Attack-B")
+			$Attack_timer.start()
+	
+
+
+func _on_attack_timer_timeout():
+	$Attack_timer.stop()
+	attack_ip = false
+	global.player_current_attack = false
+	
 	
