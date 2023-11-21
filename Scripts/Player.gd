@@ -90,7 +90,7 @@ func damage():#basic code for handeling damage
 func _on_timer_timeout():#gets called every 0.2 seconds
 	cooldown = true
 	
-
+#attack animation controller
 func attack():
 	var dir = current_dir
 	var anim = $AnimatedSprite2D
@@ -113,7 +113,7 @@ func attack():
 			$Attack_timer.start()
 	
 
-
+#Attack animationo timer
 func _on_attack_timer_timeout():
 	$Attack_timer.stop()
 	attack_ip = false

@@ -6,6 +6,7 @@ var player = null
 var Health = 20
 var overlap = false
 var dead = false
+var cooldown = true
 
 @onready var anim = $AnimatedSprite2D
 
@@ -15,7 +16,8 @@ func _ready():
 	get_node("AnimatedSprite2D").play("Idle")
 
 func _physics_process(delta):
-	
+	damage()
+	#print (Health)
 	if entered == true and dead == false:#movement with animation controller
 		anim.flip_h = false
 		#Main enemy movement script
@@ -51,16 +53,19 @@ func _on_hitbox_e_body_exited(body):
 		overlap = false
 #whenever called, decreases health
 func damage():
-	if overlap and global.player_current_attack == true: 
+	if overlap and Input.is_action_pressed("click") and cooldown == true: 
 		Health -= 2
+		cooldown = false
+		$Timer.start()
 		#print(Health)
 		if Health <=0:
 			dead = true
 			$Death.start()
 #fires every 0.2 seconds
 func _on_timer_timeout():
-	damage()
-
+	cooldown = true
+#animation timer for death animation 
+#deletes the enemy after a specific time
 func _on_death_timeout():
 	$Death.stop()
 	self.queue_free()
