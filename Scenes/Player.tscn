@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://cofbdeaxnh0jv"]
+[gd_scene load_steps=58 format=3 uid="uid://cofbdeaxnh0jv"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_c0q2d"]
 [ext_resource type="Texture2D" uid="uid://5df7nnfc54v2" path="res://art/characters/player.png" id="2_yot2y"]
@@ -62,6 +62,10 @@ region = Rect2(48, 432, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_7tt5d"]
 atlas = ExtResource("2_yot2y")
 region = Rect2(96, 432, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8752"]
+atlas = ExtResource("2_yot2y")
+region = Rect2(216, 360, 72, 120)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_drnd2"]
 atlas = ExtResource("2_yot2y")
@@ -269,6 +273,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7tt5d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8752")
 }],
 "loop": true,
 "name": &"Death",
@@ -433,7 +440,7 @@ y_sort_enabled = true
 position = Vector2(0, 8)
 scale = Vector2(1, 0.9375)
 sprite_frames = SubResource("SpriteFrames_mfe2e")
-animation = &"Idle-F"
+animation = &"Death"
 offset = Vector2(0, -15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -458,8 +465,11 @@ wait_time = 2.0
 [node name="Attack_timer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="Death" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Hitbox-P" to="." method="_on_hitbox_p_body_entered"]
 [connection signal="body_exited" from="Hitbox-P" to="." method="_on_hitbox_p_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="Death" to="." method="_on_death_timeout"]

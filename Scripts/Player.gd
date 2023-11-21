@@ -2,7 +2,7 @@ extends CharacterBody2D
 #note to self : increase animation speed
 var SPEED = 150.0
 var current_dir = "none"
-var Health = 100
+var Health = 2
 var overlap = false
 var dead = false
 var cooldown = true
@@ -15,8 +15,8 @@ func _ready():
 func _physics_process(delta):
 	damage()
 	attack()
-	print (Health)
-	
+	if dead == true :
+		$AnimatedSprite2D.play("Death")
 	if Input.is_action_pressed("Shift"):
 		SPEED = 250
 	else:
@@ -46,27 +46,27 @@ func play_animation(movement):#controlls animation on the basis of 1s and 0s
 	var ainm = $AnimatedSprite2D
 	if dir == "right":
 		ainm.flip_h = false
-		if movement == 1 and attack_ip == false:
+		if movement == 1 and attack_ip == false and dead == false:
 			ainm.play("Run-S")
-		elif movement == 0 and attack_ip == false: 
+		elif movement == 0 and attack_ip == false and dead == false: 
 			ainm.play("Idle-S")
 	if dir == "left":
 		ainm.flip_h = true
-		if movement  == 1 and attack_ip == false:
+		if movement  == 1 and attack_ip == false and dead == false:
 			ainm.play("Run-S")
-		elif movement == 0 and attack_ip == false :
+		elif movement == 0 and attack_ip == false and dead == false :
 			ainm.play("Idle-S")
 	if dir == "down":
 		ainm.flip_h = true
-		if movement  == 1 and attack_ip == false:
+		if movement  == 1 and attack_ip == false and dead == false:
 			ainm.play("Run-F")
-		elif movement == 0 and attack_ip == false:
+		elif movement == 0 and attack_ip == false and dead == false:
 			ainm.play("Idle-F")
 	if dir == "up":
 		ainm.flip_h = true
-		if movement  == 1 and attack_ip == false:
+		if movement  == 1 and attack_ip == false and dead == false:
 			ainm.play("Run-B")
-		elif movement == 0 and attack_ip == false:
+		elif movement == 0 and attack_ip == false and dead == false:
 			ainm.play("Idle-B")
 
 func player():#statse that this node is a player
@@ -83,9 +83,9 @@ func damage():#basic code for handeling damage
 		Health -= 1
 		cooldown = false
 		$Timer.start()
-		if Health <= 0:
-			print("death")
-			get_tree().change_scene_to_file("res://Scenes/Death.tscn")
+		if Health <=0 :
+			dead = true
+			$Death.start()
 		#print(Health)
 func _on_timer_timeout():#gets called every 0.2 seconds
 	cooldown = true
@@ -118,3 +118,8 @@ func _on_attack_timer_timeout():
 	$Attack_timer.stop()
 	attack_ip = false
 	global.player_current_attack = false
+
+
+func _on_death_timeout():
+	$Death.stop()
+	get_tree().change_scene_to_file("res://Scenes/Death.tscn")

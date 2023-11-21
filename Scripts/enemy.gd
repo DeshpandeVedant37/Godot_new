@@ -17,7 +17,6 @@ func _ready():
 
 func _physics_process(delta):
 	damage()
-	#print (Health)
 	if entered == true and dead == false:#movement with animation controller
 		anim.flip_h = false
 		#Main enemy movement script
@@ -57,7 +56,6 @@ func damage():
 		Health -= 2
 		cooldown = false
 		$Timer.start()
-		#print(Health)
 		if Health <=0:
 			dead = true
 			$Death.start()
