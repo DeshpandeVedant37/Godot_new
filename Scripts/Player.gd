@@ -10,7 +10,8 @@ var attack_ip = false
 
 
 func _ready():
-	$AnimatedSprite2D.play("Idle-B")
+	current_dir = "up"
+	play_animation(0)
 func _physics_process(delta):
 	damage()
 	attack()
@@ -117,5 +118,3 @@ func _on_attack_timer_timeout():
 	$Attack_timer.stop()
 	attack_ip = false
 	global.player_current_attack = false
-	
-	

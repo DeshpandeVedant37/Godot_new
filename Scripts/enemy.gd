@@ -3,7 +3,7 @@ extends CharacterBody2D
 var speed = 35
 var entered = false
 var player = null
-var Health = 2
+var Health = 20
 var overlap = false
 var dead = false
 
@@ -60,7 +60,6 @@ func damage():
 #fires every 0.2 seconds
 func _on_timer_timeout():
 	damage()
-
 
 func _on_death_timeout():
 	$Death.stop()
