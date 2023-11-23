@@ -1,6 +1,6 @@
 extends CharacterBody2D
 #note to self : increase animation speed
-var SPEED =00.0
+var SPEED =100.0
 var current_dir = "none"
 var Health = 2
 var overlap = false
@@ -124,14 +124,14 @@ func _on_death_timeout():
 	get_tree().change_scene_to_file("res://Scenes/Death.tscn")
 
 func Sprint():
-	if Input.is_action_pressed("Shift") and sprint == true:
+	if Input.is_action_just_pressed("Shift") and sprint == true:
 		SPEED = 150
 		$Sprint.start()
-	else:
-		SPEED = 100
 
 func _on_sprint_timeout():
 	SPEED = 100
 	sprint = false
-	$Sprint.stop()
+	if cooldown:
+		sprint = true
+
 	
