@@ -1,13 +1,13 @@
 extends CharacterBody2D
 #note to self : increase animation speed
-var SPEED = 150.0
+var SPEED =00.0
 var current_dir = "none"
 var Health = 2
 var overlap = false
 var dead = false
 var cooldown = true
 var attack_ip = false
-
+var sprint = true 
 
 func _ready():
 	current_dir = "up"
@@ -15,12 +15,10 @@ func _ready():
 func _physics_process(delta):
 	damage()
 	attack()
+	Sprint()
 	if dead == true :
 		$AnimatedSprite2D.play("Death")
-	if Input.is_action_pressed("Shift"):
-		SPEED = 250
-	else:
-		SPEED = 150
+	
 	#gets a vector quantity with respect to keys pressed
 	var dir = Input.get_vector("ui_left" , "ui_right" , "ui_up" , "ui_down")
 	velocity = dir.normalized() * SPEED
@@ -43,6 +41,7 @@ func _physics_process(delta):
 #animation controller function
 func play_animation(movement):#controlls animation on the basis of 1s and 0s
 	var dir = current_dir
+	print (SPEED)
 	var ainm = $AnimatedSprite2D
 	if dir == "right":
 		ainm.flip_h = false
@@ -123,3 +122,16 @@ func _on_attack_timer_timeout():
 func _on_death_timeout():
 	$Death.stop()
 	get_tree().change_scene_to_file("res://Scenes/Death.tscn")
+
+func Sprint():
+	if Input.is_action_pressed("Shift") and sprint == true:
+		SPEED = 150
+		$Sprint.start()
+	else:
+		SPEED = 100
+
+func _on_sprint_timeout():
+	SPEED = 100
+	sprint = false
+	$Sprint.stop()
+	
