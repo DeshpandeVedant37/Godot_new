@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bajhgy4rxw8y3"]
+
+[ext_resource type="Texture2D" uid="uid://cdy6v8wa22j1h" path="res://art/GUI/progress.png" id="1_5uk1v"]
+[ext_resource type="Texture2D" uid="uid://cp3uc5f0wnpbh" path="res://art/GUI/over.png" id="2_8d6il"]
+
+[node name="TextureProgressBar" type="TextureProgressBar"]
+offset_right = 67.0
+offset_bottom = 12.0
+rotation = -0.00671884
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_under = ExtResource("1_5uk1v")
+texture_over = ExtResource("2_8d6il")
+texture_progress = ExtResource("1_5uk1v")
+tint_under = Color(0.384314, 0.0117647, 0.129412, 0)
+tint_progress = Color(0.603922, 0.0745098, 0.160784, 1)
