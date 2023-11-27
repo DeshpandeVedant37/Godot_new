@@ -2,7 +2,7 @@ extends CharacterBody2D
 #note to self : increase animation speed
 var SPEED =100.0
 var current_dir = "none"
-var Health = 2
+var Health = 100
 var overlap = false
 var dead = false
 var cooldown = true
@@ -20,6 +20,7 @@ func _physics_process(delta):
 	if dead == true :
 		$AnimatedSprite2D.play("Death")
 	
+	$TextureProgressBar.set_value_no_signal(Health)
 	#gets a vector quantity with respect to keys pressed
 	var dir = Input.get_vector("ui_left" , "ui_right" , "ui_up" , "ui_down")
 	velocity = dir.normalized() * SPEED
@@ -46,32 +47,31 @@ func _physics_process(delta):
 #animation controller function
 func play_animation(movement):#controlls animation on the basis of 1s and 0s
 	var dir = current_dir
-	print (SPEED)
 	var ainm = $AnimatedSprite2D
 	if dir == "right":
 		ainm.flip_h = false
 		if movement == 1 and attack_ip == false and dead == false:
-			ainm.play("Run-")
+			ainm.play("Run-S")
 		elif movement == 0 and attack_ip == false and dead == false: 
-			ainm.play("Idle-")
-#	if dir == "left":
-#		ainm.flip_h = true
-#		if movement  == 1 and attack_ip == false and dead == false:
-#			ainm.play("Run-S")
-#		elif movement == 0 and attack_ip == false and dead == false :
-#			ainm.play("Idle-S")
-#	if dir == "down":
-#		ainm.flip_h = true
-#		if movement  == 1 and attack_ip == false and dead == false:
-#			ainm.play("Run-F")
-#		elif movement == 0 and attack_ip == false and dead == false:
-#			ainm.play("Idle-F")
-#	if dir == "up":
-#		ainm.flip_h = true
-#		if movement  == 1 and attack_ip == false and dead == false:
-#			ainm.play("Run-B")
-#		elif movement == 0 and attack_ip == false and dead == false:
-#			ainm.play("Idle-B")
+			ainm.play("Idle-S")
+	if dir == "left":
+		ainm.flip_h = true
+		if movement  == 1 and attack_ip == false and dead == false:
+			ainm.play("Run-S")
+		elif movement == 0 and attack_ip == false and dead == false :
+			ainm.play("Idle-S")
+	if dir == "down":
+		ainm.flip_h = true
+		if movement  == 1 and attack_ip == false and dead == false:
+			ainm.play("Run-F")
+		elif movement == 0 and attack_ip == false and dead == false:
+			ainm.play("Idle-F")
+	if dir == "up":
+		ainm.flip_h = true
+		if movement  == 1 and attack_ip == false and dead == false:
+			ainm.play("Run-B")
+		elif movement == 0 and attack_ip == false and dead == false:
+			ainm.play("Idle-B")
 
 func player():#statse that this node is a player
 	pass
