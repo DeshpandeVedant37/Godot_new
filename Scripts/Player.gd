@@ -7,7 +7,8 @@ var overlap = false
 var dead = false
 var cooldown = true
 var attack_ip = false
-var sprint = true 
+var sprint = true
+var Anim_state =  "F"
 
 func _ready():
 	current_dir = "up"
@@ -26,15 +27,19 @@ func _physics_process(delta):
 
 	if dir.y == -1:#Plays Run-B
 		current_dir = "up"
+		Anim_state = "D"
 		play_animation(1)
 	elif dir.y == 1:#plays Run-F
 		current_dir = "down"
-		play_animation(1)
+		Anim_state = "F"
+		play_animation(1 )
 	elif dir.x == -1:#plays Run -S with flip_h true
 		current_dir = "left"
+		Anim_state = "S"
 		play_animation(1)
 	elif dir.x == 1:# plays Run-S without flip_h
 		current_dir = "right"
+		Anim_state = "S"
 		play_animation(1)
 	if velocity.x == 0 and velocity.y == 0:#stops animation when player is not in motion
 		play_animation(0)
@@ -46,27 +51,27 @@ func play_animation(movement):#controlls animation on the basis of 1s and 0s
 	if dir == "right":
 		ainm.flip_h = false
 		if movement == 1 and attack_ip == false and dead == false:
-			ainm.play("Run-S")
+			ainm.play("Run-")
 		elif movement == 0 and attack_ip == false and dead == false: 
-			ainm.play("Idle-S")
-	if dir == "left":
-		ainm.flip_h = true
-		if movement  == 1 and attack_ip == false and dead == false:
-			ainm.play("Run-S")
-		elif movement == 0 and attack_ip == false and dead == false :
-			ainm.play("Idle-S")
-	if dir == "down":
-		ainm.flip_h = true
-		if movement  == 1 and attack_ip == false and dead == false:
-			ainm.play("Run-F")
-		elif movement == 0 and attack_ip == false and dead == false:
-			ainm.play("Idle-F")
-	if dir == "up":
-		ainm.flip_h = true
-		if movement  == 1 and attack_ip == false and dead == false:
-			ainm.play("Run-B")
-		elif movement == 0 and attack_ip == false and dead == false:
-			ainm.play("Idle-B")
+			ainm.play("Idle-")
+#	if dir == "left":
+#		ainm.flip_h = true
+#		if movement  == 1 and attack_ip == false and dead == false:
+#			ainm.play("Run-S")
+#		elif movement == 0 and attack_ip == false and dead == false :
+#			ainm.play("Idle-S")
+#	if dir == "down":
+#		ainm.flip_h = true
+#		if movement  == 1 and attack_ip == false and dead == false:
+#			ainm.play("Run-F")
+#		elif movement == 0 and attack_ip == false and dead == false:
+#			ainm.play("Idle-F")
+#	if dir == "up":
+#		ainm.flip_h = true
+#		if movement  == 1 and attack_ip == false and dead == false:
+#			ainm.play("Run-B")
+#		elif movement == 0 and attack_ip == false and dead == false:
+#			ainm.play("Idle-B")
 
 func player():#statse that this node is a player
 	pass
