@@ -1,5 +1,6 @@
 extends CharacterBody2D
 #note to self : increase animation speed
+#variables (may change)
 var SPEED =100.0
 var current_dir = "none"
 var Health = 100
@@ -9,23 +10,24 @@ var cooldown = true
 var attack_ip = false
 var sprint = true
 var Anim_state =  "F"
-
+#fires once when the scene loads
 func _ready():
 	current_dir = "up"
 	play_animation(0)
+#fires multiple times per second
 func _physics_process(delta):
 	damage()
 	attack()
 	Sprint()
 	if dead == true :
 		$AnimatedSprite2D.play("Death")
-	
+	#manages health bar
 	$TextureProgressBar.set_value_no_signal(Health)
 	#gets a vector quantity with respect to keys pressed
 	var dir = Input.get_vector("ui_left" , "ui_right" , "ui_up" , "ui_down")
 	velocity = dir.normalized() * SPEED
 	move_and_slide()
-
+#converts vector to animation and vice verca
 	if dir.y == -1:#Plays Run-B
 		current_dir = "up"
 		Anim_state = "D"
@@ -123,16 +125,16 @@ func _on_attack_timer_timeout():
 	attack_ip = false
 	global.player_current_attack = false
 
-
+#Death animation timer
 func _on_death_timeout():
 	$Death.stop()
 	get_tree().change_scene_to_file("res://Scenes/Death.tscn")
-
+#sprint timer
 func Sprint():
 	if Input.is_action_just_pressed("Shift") and sprint == true:
 		SPEED = 150
 		$Sprint.start()
-
+#fires after sprint ends
 func _on_sprint_timeout():
 	SPEED = 100
 	sprint = false
