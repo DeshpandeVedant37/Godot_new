@@ -7,23 +7,24 @@ var Health = 20
 var overlap = false
 var dead = false
 var cooldown = true
-
 var knockbackPower = 500
 @onready var anim = $AnimatedSprite2D
 
 
 #Decides what animation should be playing at load
 func _ready():
-	get_node("AnimatedSprite2D").play("Idle")
-
+	get_node("AnimatedSprite2D").play("Idle") 
 func _physics_process(delta):
 	damage()
-	knockback()
+	print (velocity)
 	if entered == true and dead == false:#movement with animation controller
 		anim.flip_h = false
 		#Main enemy movement script
+		var moveDirection = (position - player.position) 
+		velocity = moveDirection.normalized()
+		if velocity == Vector2(0,0):
+			velocity = Vector2(0,1)
 		position = position.move_toward(player.position , speed*delta)
-		
 		anim.play("Walk")
 		#Decides which side the player is on and flips the sprite accordingly
 		move_and_collide(Vector2(0,0))
@@ -55,12 +56,14 @@ func _on_hitbox_e_body_exited(body):
 #whenever called, decreases health
 func damage():
 	if overlap and Input.is_action_pressed("click") and cooldown == true: 
+		
 		Health -= 2
 		cooldown = false
 		$Timer.start()
 		if Health <=0:
 			dead = true
 			$Death.start()
+		knockback()
 #fires every 0.2 seconds
 func _on_timer_timeout():
 	cooldown = true
@@ -70,7 +73,7 @@ func _on_death_timeout():
 	$Death.stop()
 	self.queue_free()
 func knockback() :
-	if overlap:
-		var knockbackDirection = -velocity.normalized() * knockbackPower
-		velocity = knockbackDirection 
-		move_and_slide()
+	var knockbackDirection = -velocity.normalized() * knockbackPower
+	velocity = knockbackDirection 
+	print (velocity)
+	move_and_slide()
