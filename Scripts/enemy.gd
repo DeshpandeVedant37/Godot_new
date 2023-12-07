@@ -8,6 +8,7 @@ var overlap = false
 var dead = false
 var cooldown = true
 
+var knockbackPower = 500
 @onready var anim = $AnimatedSprite2D
 
 
@@ -17,6 +18,7 @@ func _ready():
 
 func _physics_process(delta):
 	damage()
+	knockback()
 	if entered == true and dead == false:#movement with animation controller
 		anim.flip_h = false
 		#Main enemy movement script
@@ -67,3 +69,8 @@ func _on_timer_timeout():
 func _on_death_timeout():
 	$Death.stop()
 	self.queue_free()
+func knockback() :
+	if overlap:
+		var knockbackDirection = -velocity.normalized() * knockbackPower
+		velocity = knockbackDirection 
+		move_and_slide()
