@@ -140,5 +140,3 @@ func _on_sprint_timeout():
 	sprint = false
 	if cooldown:
 		sprint = true
-
-	

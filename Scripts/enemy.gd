@@ -8,6 +8,7 @@ var overlap = false
 var dead = false
 var cooldown = true
 var knockbackPower = 500
+var knockbackDir = "left"
 @onready var anim = $AnimatedSprite2D
 
 
@@ -18,18 +19,28 @@ func _physics_process(delta):
 	damage()
 	print (velocity)
 	if entered == true and dead == false:#movement with animation controller
+		knockbackDir = "right"
 		anim.flip_h = false
 		#Main enemy movement script
-		var moveDirection = (position - player.position) 
+		var moveDirection = (position + player.position ) 
 		velocity = moveDirection.normalized()
-		if velocity == Vector2(0,0):
+		if velocity == Vector2(0,0) and knockbackDir == "up" :
 			velocity = Vector2(0,1)
+		elif velocity == Vector2(0,0) and knockbackDir == "down":
+			velocity = Vector2(1,0)
+		elif velocity == Vector2(0,0) and knockbackDir == "right":
+			velocity = Vector2(1,1)
 		position = position.move_toward(player.position , speed*delta)
 		anim.play("Walk")
 		#Decides which side the player is on and flips the sprite accordingly
 		move_and_collide(Vector2(0,0))
 		if player.position.x - position.x > 0 :
 			anim.flip_h = true
+			knockbackDir = "left"
+		if player.position.y - position.y > 0 :
+			knockbackDir = "up"
+		else:
+			knockbackDir = "down"
 	elif dead == true:
 		anim.play("Death")
 	else:
@@ -75,5 +86,5 @@ func _on_death_timeout():
 func knockback() :
 	var knockbackDirection = -velocity.normalized() * knockbackPower
 	velocity = knockbackDirection 
-	print (velocity)
+	#print (velocity)
 	move_and_slide()
